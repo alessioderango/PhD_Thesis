@@ -1,0 +1,103 @@
+\documentclass[a4paper,12pt,oneside]{book}
+
+%%%%%%%%%%%%%%%%PACKAGES%%%%%%%%%%%%%%%%%%%%%
+\usepackage{verbatim}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{pgfplots}
+\usepackage{subfigure}
+\usepackage{setspace}
+\usepackage{fancyhdr}
+\usepackage{epstopdf}
+\usepackage{placeins}
+\usepackage{listings}
+%\usepackage{apalike}
+\usepackage[ruled,vlined]{algorithm2e}
+
+%%%%%%%%%%%%%%THEOREM%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheorem{theorem}{Theorem}
+\newtheorem{acknowledgement}[theorem]{Acknowledgement}
+%\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem{case}[theorem]{Case}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{conclusion}[theorem]{Conclusion}
+\newtheorem{condition}[theorem]{Condition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{criterion}[theorem]{Criterion}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{solution}[theorem]{Solution}
+\newtheorem{summary}[theorem]{Summary}
+\newenvironment{proof}[1][Proof]{\textbf{#1.} }{\ \rule{0.5em}{0.5em}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\pagestyle{fancy}
+\renewcommand{\chaptermark}[1]%
+{\markboth{\MakeUppercase{\thechapter.\ #1}}{}}
+\renewcommand{\sectionmark}[1]%
+{\markright{\MakeUppercase{\thesection.\ #1}}}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0pt}
+\newcommand{\helv}{%
+\fontfamily{phv}\fontseries{b}\fontsize{9}{11}\selectfont}
+\fancyhf{}
+\fancyhead[LE,RO]{\helv \thepage}
+\fancyhead[LO]{\helv \rightmark}
+\fancyhead[RE]{\helv \leftmark}
+
+\setcounter{secnumdepth}{3} 
+\setcounter{tocdepth}{3}
+
+
+%\include{Chapters/acknowledgmentsFSE}
+%\include{Abstract}
+
+\def\standardspacing{\singlespacing}
+\standardspacing
+
+\tableofcontents
+
+\mainmatter
+
+% interlinea 1.5
+
+
+\include{Chapters/Introduction}
+
+\include{Chapters/Conclusions}
+
+\clearpage %\cleardoublepage %for openright
+\addcontentsline{toc}{chapter}{Acknowledgments}
+%\include{acknowledgments}
+
+\clearpage %\cleardoublepage %for openright
+%\addcontentsline{toc}{chapter}{Bibliography}
+%http://www.cs.stir.ac.uk/~kjt/software/latex/showbst.html
+%\bibliographystyle{abbrv}
+%\bibliography{referencesDB}
+
+%report and book
+%\clearpage %\cleardoublepage %for openright
+%\addcontentsline{toc}{chapter}{\listfigurename}
+%\listoffigures
+
+%\clearpage %\cleardoublepage %for openright
+%\addcontentsline{toc}{chapter}{\listtablename}
+%\listoftables
+%\clearpage %\cleardoublepage %for openright
+
+\end{document}
+
+
