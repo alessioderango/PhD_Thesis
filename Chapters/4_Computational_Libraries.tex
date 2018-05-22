@@ -7,6 +7,23 @@
 
 \subsection{OpenMP new concepts}
 
+%Introduzione OpenMP and High Performance Community
+OpenMP API has been massivily used by the High Performance Community thanks to the high portabily across shared memory architectures. OpenMP was mainly created to exploit traditional CPU tecnology, nevertheless nowadays high perfomance accelerators, like GPUs, Xeon Phi and FPGA, are used to obatin high perfomance on data-parallel applications. This trand is due to fact that a single accelarator can be 100 times faster than a traditional CPU. These modern accelerations are characterized by a massively parallel processing capabilities, infact some accelerations contain around $6,000$ cores respect to only 32 cores in today’s most powerful CPUs. For example, NVIDIA V100, powered by Volta architecture, is equipped with $5,120$ cuda cores and $640$ tensor cores. 
+
+%riformulare
+In general, to obtain significant accelerations on current generations of high perfomance devices, HPC programmers use different degree of parallelism, usually by hand-tuning their code, perfoming architecture-specific transformations or using domain-specific libraries and languages.
+
+In order to simplify the development of HPC applications, in July 2013 OpenMP 4.0 has been released, adding support for accelerations. 
+
+
+%cit OpenCAL and OPS, OP2	
+
+
+the High Performance Community have increasingly leveraged accelerators to increase performance   
+
+OpenMP 4.0 API (Application Program Interface), realesed on July 2013, introcuded a new directives
+
+
 \subsection{The logic behind the driver}
 
 \subsection{Runtime library for generic offloading and Nvidia GPUs}
