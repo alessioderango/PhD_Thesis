@@ -1,6 +1,6 @@
 \chapter{Domain Specific Languages for Parallel Computing}
 
-\section{Brief overview of modern Parallel Computing}
+%\section{Brief overview of modern Parallel Computing}
 
 \section{OpenMP 4.0/4.5 in Clang and LLVM}
 
@@ -8,21 +8,15 @@
 \subsection{OpenMP new concepts}
 
 %Introduzione OpenMP and High Performance Community
-OpenMP API has been massivily used by the High Performance Community thanks to the high portabily across shared memory architectures. OpenMP was mainly created to exploit traditional CPU tecnology, nevertheless nowadays high perfomance accelerators, like GPUs, Xeon Phi and FPGA, are used to obatin high perfomance on data-parallel applications. This trand is due to fact that a single accelarator can be 100 times faster than a traditional CPU. These modern accelerations are characterized by a massively parallel processing capabilities, infact some accelerations contain around $6,000$ cores respect to only 32 cores in today’s most powerful CPUs. For example, NVIDIA V100, powered by Volta architecture, is equipped with $5,120$ cuda cores and $640$ tensor cores. 
+OpenMP API has been massively used by the High Performance Community in the last years. In fact, OpenMP requires little programming effort to achieve good performance and an high portability across shared memory architectures from different vendors. Originally, OpenMP was mainly created to exploit traditional CPU technology, nevertheless nowadays high performance accelerators, like GPUs, Xeon Phi and FPGA, have increasingly leveraged to increase performance on data-parallel applications. This tendency is due to fact that a single accelerator can be 100 times faster than a traditional CPU. These modern accelerations are characterized by a massively parallel processing capabilities, containing around $6,000$ cores respect to only 32 cores in today’s most powerful CPUs. For example, NVIDIA V100, powered by Volta architecture, is equipped with $5,120$ Cuda cores and $640$ tensor cores and capable of reaching a peak of 7.5 TFLOPS on double-precision processing. 
 
 %riformulare
-In general, to obtain significant accelerations on current generations of high perfomance devices, HPC programmers use different degree of parallelism, usually by hand-tuning their code, perfoming architecture-specific transformations or using domain-specific libraries and languages.
+In general, to obtain significant accelerations on current generations of high performance devices, HPC programmers use different degree of parallelism, usually by hand-tuning their code, performing architecture-specific transformations or using domain-specific libraries and languages. This development can be time consuming and requires a big effort from the HPC programmer.
 
-In order to simplify the development of HPC applications, in July 2013 OpenMP 4.0 has been released, adding support for accelerations. 
-
+To solve this problem different researchers, developed by many research center across EU and US, has been demonstrated that one solution is to utilize a high-level abstractions (HLA) development strategy based on Embedded Domain Specific Languages (EDSLs). The aim is to simplify the development, separating what has to be computed from how is computed, totally hiding how the parallel code is implemented. 
+For this reason, the new OpenMP 4.0 has been released on July 2013, adding support for accelerations. 
 
 %cit OpenCAL and OPS, OP2	
-
-
-the High Performance Community have increasingly leveraged accelerators to increase performance   
-
-OpenMP 4.0 API (Application Program Interface), realesed on July 2013, introcuded a new directives
-
 
 \subsection{The logic behind the driver}
 
