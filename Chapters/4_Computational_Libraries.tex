@@ -8,24 +8,45 @@
 \subsection{OpenMP new concepts}
 
 %Introduzione OpenMP and High Performance Community
-OpenMP API has been massively used by the High Performance Community in the last years. In fact, OpenMP requires little programming effort to achieve good performance and an high portability across shared memory architectures from different vendors. Originally, OpenMP was mainly created to exploit traditional CPU technology, nevertheless nowadays high performance accelerators, like GPUs, Xeon Phi and FPGA, have increasingly leveraged to increase performance on data-parallel applications. This tendency is due to fact that a single accelerator can be 100 times faster than a traditional CPU. These modern accelerations are characterized by a massively parallel processing capabilities, containing around $6,000$ cores respect to only 32 cores in today’s most powerful CPUs. For example, NVIDIA V100, powered by Volta architecture, is equipped with $5,120$ Cuda cores and $640$ tensor cores and capable of reaching a peak of 7.5 TFLOPS on double-precision processing. % introdurre memoria?? 
+OpenMP API has been massively used by the High Performance Community in the last years.
+OpenMP requires little programming effort to achieve good performance and expose a single programming interface that is architecture independent. Originally, OpenMP was mainly created to exploit traditional CPU technology, nevertheless nowadays high performance accelerators, like GPUs, Xeon Phi and FPGA, have increasingly leveraged to increase performance on data-parallel applications. This tendency is due to fact that a single accelerator can be 100 times faster than a traditional CPU.
+
+% These modern accelerations are characterized by a massively parallel processing capabilities, containing around $6,000$ cores respect to only 32 cores in today’s most powerful CPUs. For example, NVIDIA V100, powered by Volta architecture, is equipped with $5,120$ Cuda cores and $640$ tensor cores and capable of reaching a peak of 7.5 TFLOPS on double-precision processing. % introdurre memoria?? 
 
 %riformulare
-In general, to obtain significant accelerations on current generations of high performance devices, HPC programmers use different degree of parallelism, usually by hand-tuning their code, performing architecture-specific transformations or using domain-specific libraries and languages. This development can be time consuming and requires a big effort from the HPC programmer.
+In general, to obtain significant perfomance on current generations of high performance devices, HPC programmers use different degree of parallelism, usually by hand-tuning their code, performing architecture-specific transformations or using a different variety of languages. This development can be time consuming and requires a big effort from the HPC programmer.
+
+
 
 To solve this problem different researchers, developed by many research center across EU and US, has been demonstrated that one solution is to utilize a high-level abstractions (HLA) development strategy based on Embedded Domain Specific Languages (EDSLs). The aim is to simplify the development, separating what has to be computed from how is computed, totally hiding how the parallel code is implemented. 
 
-For this reason, the new OpenMP 4.0 has been released on July 2013, adding support for accelerations for the first time. 
-This new release has introduced new compiler directives and library routines, making easy execute the computation on modern HPC devices, respect to the low-level programming language like CUDA and OpenCL, where the HPC programmer is language dependent and has to specify different information in order to exploit the accelerator. Although, the new OpenMP \emph{target} construct allows specifying the code region and the data to be executed on the compliant device. The data-mapping is completely seamless, the programmer can transfer the data specifying only the new \emph{map} construct, delegating the transfer directly to the embedded implementation. The following code shows an example of OpenMP 4.0/4.5:
+For this reason, the new OpenMP 4.0 has been released on July 2013, adding support for accelerations. cente
+This new release has introduced new compiler directives and library routines, making easy execute the computation on modern HPC devices, respect to the low-level programming language like CUDA and OpenCL, where the HPC programmer is language dependent and has to specify different information in order to exploit the accelerators. The new OpenMP \emph{target} construct allows specifying the code region and the data to be executed on the compliant device. The data-mapping is completely seamless, the programmer can transfer the data specifying only the new \emph{map} construct, delegating the transfer directly to the embedded implementation. The following code shows an example of OpenMP 4.0/4.5:
 
 \lstinputlisting[language=Octave]{Chapters/code/openmp4.c}
 
 Here, in particular, the new \emph{teams} construct creates a league of thread teams(i.e., CUDA blocks) and the master thread of each team executes the region, while the\emph{ distribute}
 directive distributes the iterations to the master thread of each team.
 
+The new OpenMP 4.5 has been implemented from different C/C++ compilers like Clang, IBM XL, gcc. In this work, we focused on the Clang compiler based on LLVM, available on (link github clang-ykt - MMM) developed by Carlo Bertolli of the Thomas J. Watson Reaserch Center[citare articoli Carlo - MMM] and the IBM XL compiler for the POWER architecture by the IBM.
+
+The following sections describe the design of the clang implementation, focusing on the libomptarget offloading library and the general design of the OpenMP implementation in Clang.
+
+%The aim of this work is to investigate the performance of OPS [cit chapter ] with the new OpenMP 4.5 implementation.
+
+
 %cit OpenCAL and OPS, OP2	
 
 \subsection{The logic behind the driver}
+
+In the C/C++ LLVM Clang compiler, the main entry point for the application is the \emph{driver}. The driver is responsible for select the right commands from the appropriate tool chains given by the information inside the input files passed by the user. Furthermore, the complexity of the driver is extended by the OpenMP offloading support. The driver implementation has to invoke different tool chains from the same set of input files, and, at the same time, giving a fully functional binary file containing host and device executable images.
+
+Clang's driver implementation can be divided into two components. The first component is mainly target agnostic, it is in charge of identifying the right sequence of commands and dependency between the input files and the user requests (linking, assembling, etc.). The other component contains all the tool chain data used by the given device.
+The Target-Agnostic component introduces the new notion of \emph{action} and \emph{job}. The driver represents the compilation phases and their dependencies, by a graph of supported actions (Preprocess, Compile, Assembly, Linking, etc). Each action identifies a node of the graph. There may be a single graph or one for each input file, depending on the user request. Once all the graphs are produced, the driver scans the graphs from root to leaves, and generate a sequence of \emph{jobs}, representing a pattern of actions. A job is charactered by the tool, the input files, and other target-specific arguments. At the end of the process, a final command is generated to execute the user request.
+
+In general, different target device may have different tools(assemblers, linkers, etc). In order to use the right tools, the driver memorize the tool chains and tools information inside the target-dependent part of the driver implementation. Every time a job is created, the target-dependent part is queried. 
+
+
 
 \subsection{Runtime library for generic offloading and Nvidia GPUs}
 
