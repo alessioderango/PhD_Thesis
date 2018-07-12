@@ -1,9 +1,8 @@
-\chapter{Domain Specific Languages for Parallel Computing}
+\chapter{Brief overview of modern Parallel Computing}
 
-%\section{Brief overview of modern Parallel Computing}
+\section{Fine grain GPGPU API: CUDA and OpenCL}
 
 \section{OpenMP 4.0/4.5 in Clang and LLVM}
-
 
 \subsection{OpenMP new concepts}
 
@@ -46,13 +45,16 @@ The Target-Agnostic component introduces the new notion of \emph{action} and \em
 
 In general, different target device may have different tools(assemblers, linkers, etc). In order to use the right tools, the driver memorize the tool chains and tools information inside the target-dependent part of the driver implementation. Every time a job is created, the target-dependent part is queried. 
 
-
-
 \subsection{Runtime library for generic offloading and Nvidia GPUs}
 
 \subsection{Code Generation}
 
+\section{MPI}
+
+\chapter{Domain Specific Languages for Parallel Computing}
 
 \section{OpenCAL}
 
 \section{OPS}
+
+\section{Applications}
